@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>
+            Excel file upload and processing
+        </title>
+    </head>
+    <body style="margin-top: 30px;margin-left: 30px;">
+    <h1>Upload file to generate Pivots </h1>
+
+
+    <form action="#" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file"
+                   title="Upload excel file"
+                   name="excel_file"
+                   style="border: 1px solid black; padding: 5px;"
+                   required="required">
+            <select  name="report_type" style=" padding: 5px;">
+                <option label="Applied Limit Report" value="applied_limit" >Applied Limit Report</option>
+                <option label="Loan Repayment Report" value="loan_repayment">Loan Repayment Report</option>
+            </select>
+            <p>
+            <input type="submit"
+                   value="Upload"
+                   style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+        </form>
+
+        <p></p>
+        <hr>
+        {% if not excel_data.empty %}
+        <input type="button"
+                   value="Download Report"
+                   onclick=""
+                   style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+        {% endif %}
+        <table>
+        <tr>
+        {% for key in excel_data.keys %}
+            <td> <b> {{ key }} </b> </td>
+        {% endfor %}
+        </tr>
+        {% for row in excel_data.values %}
+            <tr>
+            {% for col in row  %}
+                <td>{{ col }}</td>
+            {% endfor %}
+            </tr>
+
+        {% endfor %}
+        </table>
+
+    </body>
+</html>
